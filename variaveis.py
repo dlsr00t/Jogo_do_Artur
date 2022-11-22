@@ -7,8 +7,8 @@ largura = 1200
 altura = 640
 branco = 255, 255, 255
 ultimo = "sprite_baixo"
-mapa = pygame.image.load(os.path.join('assets', 'mapa.png'))
-background = pygame.transform.scale(mapa, (1200, 640))
+#mapa = pygame.image.load(os.path.join('assets', 'mapa.png'))
+#background = pygame.transform.scale(mapa, (1200, 640))
 
 
 pygame.font.init()
