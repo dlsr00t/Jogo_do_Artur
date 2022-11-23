@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-#from variaveis import *
+from variaveis import *
 import os
 import time
 
@@ -9,8 +9,9 @@ largura = 1200
 altura = 640
 branco = 255, 255, 255
 ultimo = "sprite_baixo"
-mapa = pygame.image.load(os.path.join('assets', 'mapa.png'))
-background = pygame.transform.scale(mapa, (1200, 640))
+#mapa = pygame.image.load(os.path.join('assets', 'mapa.png'))
+#background = pygame.transform.scale(mapa, (1200, 640))
+pygame.display.set_caption('@foureyes')
 
 
 pygame.font.init()
@@ -76,8 +77,64 @@ tempo = False
 ganhou = False
 ganhouT = False
 cheat = 0
+sair = False
 
+press = False
+wait_in_the_end = False
+    
 while True:
+    while sair == False:
+        donda = ''
+        largura = 1200
+        altura = 640
+        branco = 255, 255, 255
+        ultimo = "sprite_baixo"
+        valor = 0
+        movimentando = False
+        velocity = 12
+        #x = largura/2
+        x = 35
+        y = 0
+        #y = altura/2
+        a = 0
+        b = 0
+        #ret_um = pygame.Rect(x, y, 50, 81)
+        #ret_dois = pygame.Rect(a + 200, b + 281, 50, 81)
+
+        #retangulo = pygame.Rect(largura/2, altura/2, 500, 140)
+        #retangulo.midtop = (largura/2, 220)
+        #imagem = pygame.image.load(os.path.join('assets', 'Thief1'+'.png'))
+        #imagem = pygame.transform.scale(imagem, (40, 60))
+        roxo = (161,72,161)
+        textinho = True
+        ultimo = 'Thief'
+        x+=5
+        y+=120
+        tempo = False
+        ganhou = False
+        ganhouT = False
+        cheat = 0
+        sair = False
+        lose = False
+        
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()       
+        
+            if event.type == KEYDOWN:
+                sair = True
+                press = True
+
+        tela.fill(roxo)
+        if press == False:
+            mensagem2 = f'Pressione alguma tecla para começar'
+            texto_formatado2 = fonte.render(mensagem2,False,(255, 255, 255))
+            texto_rect2 = texto_formatado.get_rect()
+            texto_rect2.center = (largura/2.7, 320)
+            tela.blit(texto_formatado2, texto_rect2)
+            
+            pygame.display.flip()   
 
 
 
@@ -88,7 +145,7 @@ while True:
                     exit()
 
             tela.fill(roxo)
-            mensagem2 = f'Voce ganhou!!!'
+            mensagem2 = f'Você ganhou!!!'
             texto_formatado2 = fonte.render(mensagem2,False,(255, 255, 255))
             texto_rect2 = texto_formatado.get_rect()
             texto_rect2.center = (largura/1.7, 320)
@@ -98,24 +155,39 @@ while True:
             ganhouT = True
 
         while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    exit()
 
             tela.fill(roxo)
-            mensagem2 = f'Alunos: Artur Mendes, Joao Marcelo de Souza, Gustavo Simoes'
+            mensagem2 = f'Alunos: Artur Mendes, João Marcelo de Souza, Gustavo Simões'
             texto_formatado2 = fonte.render(mensagem2,False,(255, 255, 255))
             texto_rect2 = texto_formatado.get_rect()
             texto_rect2.center = (largura/3, 320)
             tela.blit(texto_formatado2, texto_rect2)
-            pygame.display.flip()       
-        
+            pygame.display.flip()   
 
+            if wait_in_the_end == False:
+                time.sleep(2)
+                wait_in_the_end = True
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    exit()
+
+                if event.type == KEYDOWN:
+                    exit()
+    
 
     else:
+
+
+
+        
+                  
+                           
+        
+
         tela.fill(roxo)
+       
         if textinho == True:
-            mensagem = f'Voce tem 23 segundos para sair do labirinto'
+            mensagem = f'Você tem 18 segundos para sair do labirinto'
             texto_formatado = fonte.render(mensagem,False,(255, 255, 255))
             texto_rect = texto_formatado.get_rect()
             texto_rect.center = (largura/2, 50)
@@ -125,11 +197,7 @@ while True:
 
 
     
-        
-        if tempo == True:
-            fim = time.time()
-            if fim-inicio>=44:
-                break
+
 
         relogio.tick(30)
         imagem_ret = pygame.Rect(x, y, 40, 60)
@@ -362,8 +430,8 @@ while True:
                 b-=4
             else:
                 movimentando = False
-        if cheat==10:
-            print("cheat ativado")
+        #if cheat==10:
+        #    print("cheat ativado")
 
         if movimentando == True:
             #if(not False in falou.values()):
@@ -379,6 +447,40 @@ while True:
         imagem = pygame.transform.scale(imagem, (50, 60))
 
         tela.blit(imagem, (x, y))
+
+        if tempo == True:
+            fimt = time.time()
+            if fimt-inicio>=18:
+                lose = True
+                while lose == True:     
+
+   
+                        tela.fill(roxo)
+                        mensagem2 = f'Você perdeu, tente novamente!'
+                        texto_formatado2 = fonte.render(mensagem2,False,(255, 255, 255))
+                        texto_rect2 = texto_formatado.get_rect()
+                        texto_rect2.center = (largura/1.9, 320)
+                        tela.blit(texto_formatado2, texto_rect2)
+
+                        mensagem2 = f'Pressione alguma tecla para recomeçar'
+                        texto_formatado2 = fonte.render(mensagem2,False,(255, 255, 255))
+                        texto_rect2 = texto_formatado.get_rect()
+                        texto_rect2.center = (largura/2, 350)
+                        tela.blit(texto_formatado2, texto_rect2)
+                        pygame.display.flip()
+                        time.sleep(1)
+                        for event in pygame.event.get():
+                            if event.type == QUIT:
+                                pygame.quit()
+                                exit()       
+        
+                            if event.type == KEYDOWN:
+                                sair = False
+
+                                lose = False  
+                                inicio = None
+                                fimt = None
+                                #pygame.display.flip()   
 
         pygame.display.flip()
 
